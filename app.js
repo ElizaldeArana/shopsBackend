@@ -5,19 +5,25 @@ const cookieParser = require('cookie-parser');
 const express      = require('express');
 const favicon      = require('serve-favicon');
 const hbs          = require('hbs');
-const mongoose     = require('mongoose');
+const mongoose     = require('mongoose') , Admin = mongoose.mongo.Admin;
 const logger       = require('morgan');
 const path         = require('path');
 
 
+
 mongoose.Promise = Promise;
-mongoose
-  .connect('mongodb://localhost/shopsbackend', {useMongoClient: true})
-  .then(() => {
-    console.log('Connected to Mongo!')
-  }).catch(err => {
-    console.error('Error connecting to mongo', err)
-  });
+mongoose.connect('mongodb://ElizaldeArana:12a09e88a@ds131323.mlab.com:31323/catalogoropa');
+
+mongoose.connection.on('open', (ref) => {
+    // connection established
+    console.log("Connected to Mongo");
+});
+
+  // .then(() => {
+  //   console.log('Connected to Mongo!')
+  // }).catch(err => {
+  //   console.error('Error connecting to mongo', err)
+  // });
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
@@ -37,7 +43,7 @@ app.use(require('node-sass-middleware')({
   dest: path.join(__dirname, 'public'),
   sourceMap: true
 }));
-      
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');

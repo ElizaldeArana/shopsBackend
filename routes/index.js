@@ -1,9 +1,21 @@
 const express = require('express');
 const router  = express.Router();
-
+let Ropa = require('../models/catalogoRopa.js');
 /* GET home page */
-router.get('/', (req, res, next) => {
-  res.render('index');
-});
+router.get('/api/catalogo', async (req, res, next) => {
+
+    //let objetoBusqueda = JSON.parse(parametrosBusqueda);
+    let ropa = await Ropa.find()
+    console.log(ropa);
+    res.json(ropa);
+
+  });
+
+  router.post("/perro", (req, res) => {
+    Ropa.create(req.body)
+    .then(ropa => {
+      res.status(200).json(ropa)
+    })
+  })
 
 module.exports = router;
