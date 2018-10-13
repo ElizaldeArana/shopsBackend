@@ -11,11 +11,13 @@ router.get('/api/catalogo', async (req, res, next) => {
 
   });
 
-  router.post("/perro", (req, res) => {
+  router.post("/create", (req, res) => {
     Ropa.create(req.body)
     .then(ropa => {
       res.status(200).json(ropa)
     })
   })
+
+
 
 module.exports = router;
